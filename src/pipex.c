@@ -1,6 +1,4 @@
-#include "include/pipex/h"
-
-
+#include "include/pipex.h"
 
 void	error_message(char *err_msg)
 {
@@ -14,21 +12,27 @@ void	execute(char *cmd, char **env)
 	char *s_cmd;
 	char *path;
 
-	s_cmd = 
+	s_cmd = ft_split(cmd, ' ');
+	path = 
 }
 
 void  child(char **argv, int *pipe_fd,  char **envp)
 {
   int fd;
 
-  fd = open(argv[1], O_RDONLY);
-  dup2(fd, STDIN_FILENO); //STDIN_FILENO = 1;fdが指すファイルを入力として使うぜって意味
+  fd = open_file(argv[1], STDIN_FILENO);
+  dup2(fd, STDIN_FILENO); //STDIN_FILENO = 0;fdが指すファイルを入力として使うぜって意味
   close(fd);
-　dup2(pipe_fd[1], STDOUT_FILENO);//標準出力されるところを、向きを変えて、パイプの書き込み端(pipe_fd[1])に出力されるように設定する.
-  
+　dup2(pipe_fd[1], STDOUT_FILENO);//標準出力されるものを、向きを変えて、パイプの書き込み端(pipe_fd[1])に出力されるように設定する.
+  close(pipe_fd[0]);
+  execute(argv[2], env);
 }
 
-
+void	parent(char **argv, int *pipe_fd, char **env)
+{
+	int	fd;
+	fd = std
+}
 
 
 int main(int argc, char **argv, char **envp)
