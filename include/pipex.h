@@ -1,11 +1,17 @@
-#ifndef PIPEX.H
- #define PIPEX.H
+#ifndef PIPEX_H
+ #define PIPEX_H
 
 /*--------------------Library--------------------*/
 
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <stdio.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
 #include "../libft/libft.h"
+
 
 /*--------------------Macro--------------------*/
 
