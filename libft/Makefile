@@ -1,7 +1,7 @@
 # Basic Configuration
 NAME=libft.a
 
-CC=cc
+CC=clang
 CFLAGS=-Wall -Wextra -Werror
 
 # Source files and object files
@@ -47,3 +47,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re bonus
+

@@ -4,7 +4,7 @@ CFLAGS=-Wall -Wextra -Werror
 INCLUDES= -I ./includes -I./libft/includes
 LIBFT=libft/libft.a
 SRCDIR=srcs/
-SRCFILES=parent.c
+SRCFILES=pipex.c
 
 SRCS= $(addprefix $(SRCDIR), $(SRCFILES))
 OBJS=$(SRCS:.c=.o)
@@ -16,7 +16,7 @@ $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LIBFT) -o $(NAME)
 $(LIBFT):
 	make -C libft
-$%.o: %.c
+%.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 clean:
 	make clean -C libft
