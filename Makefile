@@ -4,7 +4,7 @@ CFLAGS=-Wall -Wextra -Werror
 INCLUDES= -I ./includes -I./libft/includes
 LIBFT=libft/libft.a
 SRCDIR=srcs/
-SRCFILES=pipex.c
+SRCFILES=pipex.c utils.c
 
 SRCS= $(addprefix $(SRCDIR), $(SRCFILES))
 OBJS=$(SRCS:.c=.o)

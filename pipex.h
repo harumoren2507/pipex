@@ -12,7 +12,6 @@
 #include <stdio.h>
 #include "libft/libft.h"
 
-
 /*--------------------Macro--------------------*/
 
 #define ERR_ARGC "Invaild number of Arguments"
@@ -24,6 +23,12 @@
 #define BUFFER_SIZE 1024
 /*--------------------Struct--------------------*/
 
+
+
+/*----------------proto_function----------------*/
+
+void	ft_free_tab(char **tab);
+char *ft_getpath(char *cmd, char **env);
 
 #endif
 

@@ -49,11 +49,11 @@ char *ft_getpath(char *cmd, char **env)
 	char *exec_path;
 
 	path = ft_getenv("PATH", env);
-	allpath = ft_split(path, ':');
+	all_path = ft_split(path, ':');
 	s_cmd = ft_split(cmd, ' ');
-	while (allpath[i] != NULL)
+	while (all_path[i] != NULL)
 	{
-		path_part = ft_strjoin(all_path, "/");
+		path_part = ft_strjoin(all_path[i], "/");
 		exec_path = ft_strjoin(path_part, s_cmd[0]);
 		free(path_part);
 		if (access(exec_path, F_OK | X_OK) == 0)
