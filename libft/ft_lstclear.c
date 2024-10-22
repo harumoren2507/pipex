@@ -6,7 +6,7 @@
 /*   By: retoriya <retoriya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:31:11 by retoriya          #+#    #+#             */
-/*   Updated: 2024/04/22 22:26:32 by retoriya         ###   ########.fr       */
+/*   Updated: 2024/10/22 19:19:37 by retoriya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	{
 		del(current->content);
 		tmp = current->next;
-    free(current);
+		free(current);
 		current = tmp;
 	}
 	*lst = NULL;
@@ -61,4 +61,3 @@ int	main(void)
 		printf("After clearing the list, head is now NULL.\n");
 	return (0);
 }
-

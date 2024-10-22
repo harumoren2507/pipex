@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memfree.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: retoriya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/22 19:18:54 by retoriya          #+#    #+#             */
+/*   Updated: 2024/10/22 19:19:11 by retoriya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-void  ft_memfree(void *ptr)
+void	ft_memfree(void *ptr)
 {
-  if (!ptr)
-    return ;
-  free(ptr);
-  ptr = NULL;
+	if (!ptr)
+		return ;
+	free(ptr);
+	ptr = NULL;
 }

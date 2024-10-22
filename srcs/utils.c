@@ -1,12 +1,24 @@
-#include "../pipex.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: retoriya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/22 18:26:29 by retoriya          #+#    #+#             */
+/*   Updated: 2024/10/22 19:23:29 by retoriya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char *ft_getenv(char *envname, char **env)
+#include "../includes/pipex.h"
+
+char	*ft_getenv(char *envname, char **env)
 {
-	int	i;
-	int	j;
-	char *sub;
-	i = 0;
+	int		i;
+	int		j;
+	char	*sub;
 
+	i = 0;
 	while (env[i] != NULL)
 	{
 		j = 0;
@@ -24,11 +36,10 @@ char *ft_getenv(char *envname, char **env)
 	return (NULL);
 }
 
-
 void	ft_free_tab(char **tab)
 {
 	size_t	i;
-	
+
 	i = 0;
 	while (tab[i] != NULL)
 	{
@@ -38,35 +49,38 @@ void	ft_free_tab(char **tab)
 	free(tab);
 }
 
-char *ft_getpath(char *cmd, char **env)
+static char	*find_executable(char **all_path, char **split_cmd)
 {
-	int	i;
-	i = 0;
-	char *path;
-	char **all_path;
-	char **s_cmd;
-	char *path_part;
-	char *exec_path;
+	int		i;
+	char	*path_part;
+	char	*exec_path;
 
-	path = ft_getenv("PATH", env);
-	all_path = ft_split(path, ':');
-	s_cmd = ft_split(cmd, ' ');
+	i = 0;
 	while (all_path[i] != NULL)
 	{
 		path_part = ft_strjoin(all_path[i], "/");
-		exec_path = ft_strjoin(path_part, s_cmd[0]);
+		exec_path = ft_strjoin(path_part, split_cmd[0]);
 		free(path_part);
 		if (access(exec_path, F_OK | X_OK) == 0)
-		{
-			ft_free_tab(all_path);
-			ft_free_tab(s_cmd);
 			return (exec_path);
-		}
 		free(exec_path);
 		i++;
 	}
-	ft_free_tab(all_path);
-	ft_free_tab(s_cmd);
-	return (cmd);
+	return (NULL);
 }
 
+char	*ft_getpath(char *cmd, char **env)
+{
+	int		i;
+	char	**all_path;
+	char	**split_cmd;
+	char	*exec_path;
+
+	i = 0;
+	all_path = ft_split(ft_getenv("PATH", env), ':');
+	split_cmd = ft_split(cmd, ' ');
+	exec_path = find_executable(all_path, split_cmd);
+	ft_free_tab(all_path);
+	ft_free_tab(split_cmd);
+	return (exec_path);
+}
