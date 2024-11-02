@@ -63,6 +63,7 @@ int	main(int argc, char *argv[], char **envp)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
+  int status;
 
 	if (argc != 5)
 		error_message(ERR_ARGC);
@@ -71,5 +72,9 @@ int	main(int argc, char *argv[], char **envp)
 	pid = fork();
 	if (pid == 0)
 		child_process(argv, pipe_fd, envp);
-	parent_process(argv, pipe_fd, envp);
+  else 
+  {
+    waitpid(pid, &status, 0);
+	  parent_process(argv, pipe_fd, envp);
+  }
 }

@@ -71,12 +71,10 @@ static char	*find_executable(char **all_path, char **split_cmd)
 
 char	*ft_getpath(char *cmd, char **env)
 {
-	int		i;
 	char	**all_path;
 	char	**split_cmd;
 	char	*exec_path;
 
-	i = 0;
 	all_path = ft_split(ft_getenv("PATH", env), ':');
 	split_cmd = ft_split(cmd, ' ');
 	exec_path = find_executable(all_path, split_cmd);
