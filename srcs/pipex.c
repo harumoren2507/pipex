@@ -59,6 +59,8 @@ void	parent_process(char *argv[], int *pipe_fd, char **envp)
 	execute(argv[3], envp);
 }
 
+
+#include <stdio.h>
 int	main(int argc, char *argv[], char **envp)
 {
 	int		pipe_fd[2];
@@ -78,3 +80,4 @@ int	main(int argc, char *argv[], char **envp)
 	  parent_process(argv, pipe_fd, envp);
   }
 }
+
