@@ -6,13 +6,13 @@
 /*   By: retoriya <retoriya@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:20:55 by retoriya          #+#    #+#             */
-/*   Updated: 2024/04/16 15:18:19 by retoriya         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:49:08 by retoriya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl_fd(char *s, int fd)
+void	ft_putendl_fd(const char *s, int fd)
 {
 	ft_putstr_fd(s, fd);
 	ft_putchar_fd('\n', fd);
