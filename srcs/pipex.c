@@ -6,7 +6,7 @@
 /*   By: retoriya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:26:15 by retoriya          #+#    #+#             */
-/*   Updated: 2024/10/22 19:23:15 by retoriya         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:58:54 by retoriya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-void	error_message(const char *msg)
-{
-	perror(msg);
-	exit(EXIT_FAILURE);
-}
 
 void	execute(char *cmd, char **env)
 {
@@ -42,6 +36,8 @@ void	child_process(char *argv[], int *pipe_fd, char **envp)
 	int	input_fd;
 
 	input_fd = open(argv[1], O_RDONLY);
+	if (input_fd == -1)
+		print_file_not_found(argv[1]);
 	dup2(input_fd, STDIN_FILENO);
 	dup2(pipe_fd[1], STDOUT_FILENO);
 	close(pipe_fd[0]);
@@ -52,32 +48,32 @@ void	parent_process(char *argv[], int *pipe_fd, char **envp)
 {
 	int	output_fd;
 
-	output_fd = open(argv[4], O_WRONLY);
+	output_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	dup2(output_fd, STDOUT_FILENO);
 	dup2(pipe_fd[0], STDIN_FILENO);
 	close(pipe_fd[1]);
 	execute(argv[3], envp);
 }
 
-
-#include <stdio.h>
 int	main(int argc, char *argv[], char **envp)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
-  int status;
+	int		status;
 
 	if (argc != 5)
-		error_message(ERR_ARGC);
+		perror_message(ERR_ARGC);
 	if (pipe(pipe_fd) == -1)
-		error_message(ERR_PIPE);
+		perror_message(ERR_PIPE);
 	pid = fork();
 	if (pid == 0)
 		child_process(argv, pipe_fd, envp);
-  else 
-  {
-    waitpid(pid, &status, 0);
-	  parent_process(argv, pipe_fd, envp);
-  }
+	else
+	{
+		waitpid(pid, &status, 0);
+		 if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
+        		exit(1);
+		parent_process(argv, pipe_fd, envp);
+	}
 }
 
