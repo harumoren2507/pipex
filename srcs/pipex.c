@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 void	execute(char *cmd, char **env)
 {
@@ -71,9 +68,6 @@ int	main(int argc, char *argv[], char **envp)
 	else
 	{
 		waitpid(pid, &status, 0);
-		 if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-        		exit(1);
 		parent_process(argv, pipe_fd, envp);
 	}
 }
-
